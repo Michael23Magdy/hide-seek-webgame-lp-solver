@@ -2,13 +2,14 @@ import { useState } from "react";
 import RadioButton from "../Components/ui/RadioButton";
 import { GameMode } from "../constants/enums";
 import { GameRole } from "../constants/enums";
+import { useGame } from "../context/GameContext";
 
 
 const HomePage = ()=>{
+    const {state: gameState, actions} = useGame();
     const [gameMode, setGameMode] = useState(null);
     const [gameRole, setGameRole] = useState(null);
-    const [gridSize, setGridSize] = useState(3);
-
+    
     return (
         <div className="h-max flex flex-col items-center justify-center gap-y-4">
             <div className="text-center">
@@ -72,7 +73,7 @@ const HomePage = ()=>{
                     <label htmlFor="rangeInput" className="block text-lg font-bold mb-2">
                         Grid Size:
                         <span aria-live="polite" className="ml-1">
-                        {gridSize}×{gridSize}
+                        {gameState.size}×{gameState.size}
                         </span>
                     </label>
 
@@ -82,12 +83,12 @@ const HomePage = ()=>{
                         min={3}
                         max={6}
                         step={1}
-                        value={gridSize}
+                        value={gameState.size}
                         className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sky-200 accent-green-400 hover:accent-green-600 "
-                        onChange={e => setGridSize(parseInt(e.target.value, 10))}
+                        onChange={e => actions.setSize(parseInt(e.target.value, 10))}
                         aria-valuemin={3}
                         aria-valuemax={6}
-                        aria-valuenow={gridSize}
+                        aria-valuenow={gameState.size}
                     />
 
                     <div className="flex justify-between mt-2 text-sm text-gray-600">

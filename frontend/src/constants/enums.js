@@ -7,4 +7,9 @@ export const GameMode = Object.freeze({
 export const GameRole = Object.freeze({
     Hider: "hider",
     Seeker: "Seeker",
+});
+
+export const PlayerType = Object.freeze({
+    Human: "Human",
+    Computer: "Computer",
 })
