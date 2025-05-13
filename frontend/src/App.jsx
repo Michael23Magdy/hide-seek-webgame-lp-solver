@@ -1,13 +1,20 @@
 import { useState } from 'react'
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import Layout from './Components/ui/Layout';
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="text-3xl font-bold text-blue-600 bg-amber-900">
-      Hello Tailwind!
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
