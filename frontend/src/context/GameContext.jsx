@@ -11,7 +11,7 @@ export function GameProvider({ children }){
 
     const actions = {
         setSize: size => dispatch({type: GameActions.setSize, payload: size}),
-        generateNewGrid: ()=> dispatch({type: GameActions.generateNewGrid, payload: ()=>generateRandomGrid(state.size)}),
+        generateNewGrid: ()=> dispatch({type: GameActions.generateNewGrid, payload: generateRandomGrid(state.size)}),
         increamentHiderScore: increase => dispatch({type: GameActions.setHiderScore, payload: (state.hiderScore + increase)}),
         setHiderChoice: (x, y) => dispatch({type: GameActions.setHiderChoice, payload: {x, y}}),
         setHiderType: type => dispatch({type: GameActions.setHiderType, payload: type}),

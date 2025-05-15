@@ -1,14 +1,47 @@
 import { useState } from "react";
 import RadioButton from "../Components/ui/RadioButton";
-import { GameMode } from "../constants/enums";
+import { GameMode, PlayerType } from "../constants/enums";
 import { GameRole } from "../constants/enums";
 import { useGame } from "../context/GameContext";
+import { useNavigate } from "react-router-dom";
 
 
 const HomePage = ()=>{
     const {state: gameState, actions} = useGame();
     const [gameMode, setGameMode] = useState(null);
     const [gameRole, setGameRole] = useState(null);
+    const navigate = useNavigate();
+
+    const handleGameStart = () => {
+        if (!gameMode) {
+            alert("Choose game mode");
+            return;
+        }
+        if (gameMode === GameMode.HumanVsComputer && !gameRole) {
+            alert("Choose game role");
+            return;
+        }
+
+        switch (gameMode) {
+            case GameMode.HumanVsHuman:
+                actions.setHiderType(PlayerType.Human);
+                actions.setSeekerType(PlayerType.Human);
+                break;
+            case GameMode.ComputerVsComputer:
+                actions.setHiderType(PlayerType.Computer);
+                actions.setSeekerType(PlayerType.Computer);
+                break;
+            case GameMode.HumanVsComputer:
+                actions.setHiderType(gameRole === GameRole.Hider ? PlayerType.Human : PlayerType.Computer);
+                actions.setSeekerType(gameRole === GameRole.Seeker ? PlayerType.Human : PlayerType.Computer);
+                break;
+            default:
+                break;
+        }
+
+        actions.generateNewGrid();
+        navigate("/game");
+    };
     
     return (
         <div className="h-max flex flex-col items-center justify-center gap-y-4">
@@ -101,6 +134,7 @@ const HomePage = ()=>{
                 <div className="w-full">
                     <button
                         className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300"
+                        onClick={handleGameStart}
                     >
                         Start Game
                     </button>
