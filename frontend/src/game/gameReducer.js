@@ -19,7 +19,7 @@ export const initialGameState = {
     },
     turn: GameRole.Hider,
     roundWinner: null,
-    roundCount: 0,
+    roundCount: 1,
 }
 
 export function gameReducer(state, action){
