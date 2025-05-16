@@ -1,13 +1,15 @@
+import{ useEffect} from "react";
 import { useGame } from "../context/GameContext";
+import GameGrid from "../Components/GamePageComponents/GameGrid";
 
 const GamePage = () => {
     const {state: gameState, actions} = useGame();
-    // Score board
-    // turn (state, reset, next round)
-    // Grid
-
+    useEffect(() => {
+        actions.generateNewGrid(); 
+    }, [gameState.size]);
     return (
-        <div className="grid grid-cols-2">
+        <div className="h-max ">
+            <GameGrid />
             
         </div>
     );
