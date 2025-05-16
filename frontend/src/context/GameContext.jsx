@@ -18,7 +18,9 @@ export function GameProvider({ children }){
         increamentSeekerScore: increase => dispatch({type: GameActions.setSeekerScore, payload: (state.seekerScore + increase)}),
         setSeekerChoice: (x, y) => dispatch({type: GameActions.setSeekerChoice, payload: {x, y}}),
         setSeekerType: type => dispatch({type: GameActions.setSeekerType, payload: type}),
-        switchTurn: ()=> dispatch({type: GameActions.setTurn, payload: (state.turn == GameRole.Hider?GameRole.Seeker:GameRole.Hider)})
+        switchTurn: ()=> dispatch({type: GameActions.setTurn, payload: (state.turn == GameRole.Hider?GameRole.Seeker:GameRole.Hider)}),
+        setRoundWinner: winner => dispatch({type: GameActions.setRoundWinner, payload: winner}),
+        increamentRoundCount: ()=> dispatch({type: GameActions.setRoundCount, payload: (state.roundCount + 1)}),
     }
 
     return (

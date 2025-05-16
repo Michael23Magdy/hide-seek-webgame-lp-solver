@@ -13,4 +13,6 @@ export const GameActions = Object.freeze({
     setSeekerType: "set seeker type",
     
     setTurn: "set turn",
+    setRoundWinner: "set round winner",
+    setRoundCount: "set round count"
 });

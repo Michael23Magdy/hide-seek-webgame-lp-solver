@@ -18,6 +18,8 @@ export const initialGameState = {
         y: null,
     },
     turn: GameRole.Hider,
+    roundWinner: null,
+    roundCount: 0,
 }
 
 export function gameReducer(state, action){
@@ -48,6 +50,12 @@ export function gameReducer(state, action){
 
         case GameActions.setTurn:
             return {...state, turn: action.payload}
+
+        case GameActions.setRoundWinner:
+            return {...state, roundWinner: action.payload}
+
+        case GameActions.setRoundCount:
+            return {...state, roundCount: action.payload}
 
         default:
             throw new Error(`Unknown action: ${action.type}`);
