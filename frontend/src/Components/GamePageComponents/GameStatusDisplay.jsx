@@ -5,7 +5,7 @@ import BoxContainer from "../ui/BoxContainer";
 const GameStatusDisplay = () => {
     const {state: gameState, actions} = useGame();
 
-    const isNextRoundAvailable = gameState.roundWinner != null || true;
+    const isNextRoundAvailable = gameState.roundWinner != null;
     const handNextRound = () => {
         actions.setHiderChoice(null, null);
         actions.setSeekerChoice(null, null);
@@ -27,7 +27,7 @@ const GameStatusDisplay = () => {
     return (
         <BoxContainer className="flex flex-col justify-center items-center gap-1 w-full">
             <p className="text-xl text-gray-800">Round {gameState.roundCount}</p>
-            <div className="text-red-300 p-2 rounded-2xl w-full text-center">
+            <div className="text-red-300 p-2 rounded-2xl w-48 text-center">
                 {
                     (gameState.roundWinner == GameRole.Hider)   ? <p>The hider is the winner</p>  :
                     (gameState.roundWinner == GameRole.Seeker)  ? <p>The Seeker is the winner</p> :
@@ -36,14 +36,14 @@ const GameStatusDisplay = () => {
                 }
             </div>
             <button
-                className={` bg-blue-600 p-2 rounded-2xl w-full disabled:bg-gray-200 disabled:text-white `}
+                className={` bg-blue-300 p-2 rounded-2xl w-full disabled:bg-gray-200 disabled:text-white `}
                 onClick={handNextRound}
                 disabled={!isNextRoundAvailable}
             >
                 Next Round
             </button>
             <button 
-                className="bg-red-600 p-2 rounded-2xl w-full"
+                className="bg-red-300 p-2 rounded-2xl w-full"
                 onClick={handleGameReset}
             > 
                 Reset Game
