@@ -4,6 +4,10 @@ import { GameMode, PlayerType } from "../constants/enums";
 import { GameRole } from "../constants/enums";
 import { useGame } from "../context/GameContext";
 import { useNavigate } from "react-router-dom";
+import TomJerry from "../assets/tomJerry.png";
+import Title from "../assets/title.png";
+import JerryFace from "../assets/jerryFace.png";
+import TomFace from "../assets/tomFace.webp";
 
 
 const HomePage = ()=>{
@@ -45,10 +49,6 @@ const HomePage = ()=>{
     
     return (
         <div className="h-max flex flex-col items-center justify-center gap-y-4">
-            <div className="text-center">
-                <h1 className="text-5xl font-bold mb-4 animate-pulse text-gray-800">Hide & Seek Game</h1>
-                <h2 className="text-lg font-medium mb-4 text-gray-600">A fun strategy game with game theory principles!</h2>
-            </div>
             <div className="w-full flex flex-col items-center justify-center gap-y-4 bg-white bg-opacity-20 backdrop-blur-3xl p-8 rounded-4xl shadow-lg">
                 <div className="w-full">
                     <h2 className="text-xl font-bold mb-4 text-gray-700">Game setup</h2>
@@ -86,18 +86,18 @@ const HomePage = ()=>{
                         <h2 className="text-xl font-bold mb-4 text-gray-700">Select Your Role:</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <RadioButton
-                                icon="🙈"
-                                value={GameRole.Hider}
-                                checked={gameRole === GameRole.Hider}
-                                onChange={() => setGameRole(GameRole.Hider)}
-                                label="Hider"
-                            />
-                            <RadioButton
-                                icon="🔍"
+                                icon={TomFace}
                                 value={GameRole.Hider}
                                 checked={gameRole === GameRole.Seeker}
                                 onChange={() => setGameRole(GameRole.Seeker)}
                                 label="Seeker"
+                            />
+                            <RadioButton
+                                icon={JerryFace}
+                                value={GameRole.Hider}
+                                checked={gameRole === GameRole.Hider}
+                                onChange={() => setGameRole(GameRole.Hider)}
+                                label="Hider"
                             />
                         </div>
                     </div>)}
