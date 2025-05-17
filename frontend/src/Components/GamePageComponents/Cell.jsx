@@ -16,7 +16,7 @@ const Cell= ({x,y,onClick})=>{
     let name = Names[level];
     if(gameState.roundWinner != null){
         if(isHider && isSeeker){
-            name = <img src={cought} className="w-24" alt="" />;
+            name = <img src={cought} className="w-20" alt="" />;
         } else if(isHider){
             name = <img src={Jerry} className="w-14" />;
         } else if(isSeeker){
