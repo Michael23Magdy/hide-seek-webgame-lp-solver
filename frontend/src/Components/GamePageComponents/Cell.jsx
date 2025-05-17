@@ -1,12 +1,24 @@
-const Cell= ({x,y,level,hiderChoice,seekerChoice,onClick})=>{
-    const Colors = ['bg-red-200', 'bg-green-200', 'bg-gray-200'];
-    const Names = ['Hard', 'Medium', 'Neutral'];
+import { useGame } from "../../context/GameContext";
+
+const Colors = ['bg-red-200', 'bg-green-200', 'bg-gray-200'];
+const Names = ['Hard', 'Medium', 'Neutral'];
+
+const Cell= ({x,y,onClick})=>{
+    const {state: gameState, actions} = useGame();
+    const level = gameState.grid[x][y];
+    const {hiderChoice, seekerChoice} = gameState;
+
     const isHider = hiderChoice.x === x && hiderChoice.y === y;
     const isSeeker = seekerChoice.x === x && seekerChoice.y === y;
-    const found = hiderChoice.x === seekerChoice.x && hiderChoice.y === seekerChoice.y;
     let name = Names[level];
-    if(found && isHider && isSeeker){
-        name = '✔️';
+    if(gameState.roundWinner != null){
+        if(isHider && isSeeker){
+            name = '✔️';
+        } else if(isHider){
+            name = '🙈';
+        } else if(isSeeker){
+            name = '🔍';
+        }
     }
     const cellColor=Colors[level];
     return(

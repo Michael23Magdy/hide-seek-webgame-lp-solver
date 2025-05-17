@@ -1,5 +1,6 @@
 import { GameRole } from "../../constants/enums";
 import { useGame } from "../../context/GameContext";
+import BoxContainer from "../ui/BoxContainer";
 
 const GameStatusDisplay = () => {
     const {state: gameState, actions} = useGame();
@@ -24,9 +25,9 @@ const GameStatusDisplay = () => {
     } 
 
     return (
-        <div className="bg-white p-4 rounded-2xl flex flex-col justify-center items-center gap-1 w-full">
+        <BoxContainer className="flex flex-col justify-center items-center gap-1 w-full">
             <p className="text-xl text-gray-800">Round {gameState.roundCount}</p>
-            <div className="text-red-300 p-2 rounded-2xl w-full">
+            <div className="text-red-300 p-2 rounded-2xl w-full text-center">
                 {
                     (gameState.roundWinner == GameRole.Hider)   ? <p>The hider is the winner</p>  :
                     (gameState.roundWinner == GameRole.Seeker)  ? <p>The Seeker is the winner</p> :
@@ -47,7 +48,7 @@ const GameStatusDisplay = () => {
             > 
                 Reset Game
             </button>
-        </div>
+        </BoxContainer>
     )
 }
 

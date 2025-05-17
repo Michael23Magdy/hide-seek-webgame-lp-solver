@@ -1,8 +1,9 @@
 import Cell from "./Cell";
 import {useGame} from "../../context/GameContext";
 import { GameRole } from "../../constants/enums";
+import BoxContainer from "../ui/BoxContainer";
 
-const GameGrid = () => {
+const GameGrid = ({onCellClick}) => {
     const {state: gameState, actions} = useGame();
     const {grid, size, hiderChoice, seekerChoice} = gameState;
 
@@ -14,18 +15,9 @@ const GameGrid = () => {
         6: "grid-cols-6",
     }[size] || "grid-cols-1";
 
-
-    const handleCellClick = (x, y) => {
-        if (gameState.gameRole === GameRole.Hider) {
-            actions.setHiderChoice({ x, y });
-        } else {
-            actions.setSeekerChoice({ x, y });
-        }
-    };
     return (
-        <div className={`
+        <BoxContainer className={`
             grid gap-2 ${columnClass} max-h-screen w-full
-            bg-white rounded-2xl p-4
         `} >
             {grid.map((row, i) =>
                 row.map((cell, j) => (
@@ -36,11 +28,11 @@ const GameGrid = () => {
                         level={cell}
                         hiderChoice={hiderChoice}
                         seekerChoice={seekerChoice}
-                        onClick={handleCellClick}
+                        onClick={onCellClick}
                     />
                 ))
             )}
-        </div>
+        </BoxContainer>
     );
 };
 export default GameGrid;
