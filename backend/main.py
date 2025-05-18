@@ -45,3 +45,14 @@ def solve(matrix, player_sign=1):
         print(f"Error in solve function: {e}")
         # Re-raise the exception so it can be caught and handled by the caller
         raise
+
+# Example matrix from the image
+matrix = [
+    [2, 2, 2, 1],
+    [0, 1, 1, 2],
+    [1, 0, 1, 2],
+    [1, 2, 1, 1]
+]
+payoff, p1strat, p2strat = solve(matrix)
+print("\nPayoff matrix:")
+print(payoff)

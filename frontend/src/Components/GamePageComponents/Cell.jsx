@@ -13,7 +13,9 @@ const Cell= ({x,y,onClick})=>{
 
     const isHider = hiderChoice.x === x && hiderChoice.y === y;
     const isSeeker = seekerChoice.x === x && seekerChoice.y === y;
+
     let name = Names[level];
+    let cellColor=Colors[level];
     if(gameState.roundWinner != null){
         if(isHider && isSeeker){
             name = <img src={cought} className="w-20" alt="" />;
@@ -23,7 +25,6 @@ const Cell= ({x,y,onClick})=>{
             name = <img src={Tom} className="w-14" />;
         }
     }
-    const cellColor=Colors[level];
     return(
         <div
             onClick={() => onClick(x, y)}

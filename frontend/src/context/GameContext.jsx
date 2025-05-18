@@ -27,7 +27,7 @@ export function GameProvider({ children }){
         
         resetHiderScore: () => dispatch({type: GameActions.setHiderScore, payload: 0}),
         resetSeekerScore: () => dispatch({type: GameActions.setSeekerScore, payload: 0}),
-        resetRoundCount: ()=> dispatch({type: GameActions.setRoundCount, payload: 1}),
+        resetRoundCount: ()=> dispatch({type: GameActions.setRoundCount, payload: 0}),
     }
 
     return (

@@ -2,27 +2,10 @@ import { GameRole } from "../../constants/enums";
 import { useGame } from "../../context/GameContext";
 import BoxContainer from "../ui/BoxContainer";
 
-const GameStatusDisplay = () => {
+const GameStatusDisplay = ({ handleNextRound, handleGameReset }) => {
     const {state: gameState, actions} = useGame();
 
-    const isNextRoundAvailable = gameState.roundWinner != null;
-    const handNextRound = () => {
-        actions.setHiderChoice(null, null);
-        actions.setSeekerChoice(null, null);
-        actions.setTurn(GameRole.Hider);
-        actions.setRoundWinner(null);
-        actions.increamentRoundCount();
-    }
-    const handleGameReset = () => {
-        actions.generateNewGrid();
-        actions.resetHiderScore();
-        actions.resetSeekerScore();
-        actions.resetRoundCount();
-        actions.setHiderChoice(null, null);
-        actions.setSeekerChoice(null, null);
-        actions.setTurn(GameRole.Hider);
-        actions.setRoundWinner(null);
-    } 
+    const isNextRoundAvailable = gameState.turn == null;
 
     return (
         <BoxContainer className="flex flex-col justify-center items-center gap-1 w-full">
@@ -37,10 +20,10 @@ const GameStatusDisplay = () => {
             </div>
             <button
                 className={` bg-blue-300 p-2 rounded-2xl w-full disabled:bg-gray-200 disabled:text-white `}
-                onClick={handNextRound}
+                onClick={handleNextRound}
                 disabled={!isNextRoundAvailable}
             >
-                Next Round
+                {gameState.roundCount == 0?"Start Game":"Next Round"}
             </button>
             <button 
                 className="bg-red-300 p-2 rounded-2xl w-full"
