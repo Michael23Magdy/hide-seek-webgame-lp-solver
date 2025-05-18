@@ -13,6 +13,10 @@ const GameGrid = ({onCellClick}) => {
         4: "grid-cols-4",
         5: "grid-cols-5",
         6: "grid-cols-6",
+        9: "grid-cols-9",
+        16: "grid-cols-16",
+        25: "grid-cols-25",
+        36: "grid-cols-36",
     }[size] || "grid-cols-1";
 
     return (

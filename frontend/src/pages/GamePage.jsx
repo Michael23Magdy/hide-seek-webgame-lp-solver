@@ -7,6 +7,7 @@ import { chooseBasedOnProbability, chooseRandomCell } from "../game/utils";
 import ScoreBoard from "../Components/GamePageComponents/ScoreBoard";
 import { sendDataToServer } from "../API/simplex";
 import loader from "../assets/200w.gif";
+import Table from "../Components/GamePageComponents/Table";
 
 const GamePage = () => {
     const {state: gameState, actions} = useGame();
@@ -139,6 +140,19 @@ const GamePage = () => {
             <div className="row-span-1 col-span-1">
                 <GameStatusDisplay handleGameReset={handleGameReset} handleNextRound={handleNextRound} />
             </div>
+            {aiData.seekerProbability && aiData.hiderProbability && aiData.payoff && (
+            <>
+                <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <Table Data={aiData.hiderProbability} size={gameState.size} title="Hider Probability" />
+                <Table Data={aiData.seekerProbability} size={gameState.size} title="Seeker Probability" />
+                </div>
+
+                <div className="col-span-3">
+                <Table Data={aiData.payoff} size={gameState.size*gameState.size} title="PayOff matrix" />
+                </div>
+            </>
+            )}
+
             {/* Optionally, show gameState for debugging in a hidden cell or below */}
             {/* <div className="col-span-3">
                 <pre>{JSON.stringify(gameState, null, 2)}</pre>
