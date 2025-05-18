@@ -1,6 +1,6 @@
-HARD_WIN, HARD_LOSE = 10, -30
-NEUTRAL_WIN, NEUTRAL_LOSE = 10, -10
-EASY_WIN, EASY_LOSE = 20, -10
+HARD_WIN, HARD_LOSE = 100, -500
+NEUTRAL_WIN, NEUTRAL_LOSE = 150, -300
+EASY_WIN, EASY_LOSE = 200, -100
 
 def print_2d_array(array):
     for row in array:
@@ -9,14 +9,16 @@ def print_2d_array(array):
 
 
 def payoff_normalize(matrix, rows, cols, minimum):
+    normalized = [[0 for _ in range(cols)] for _ in range(rows)]
     for i in range(rows):
         for j in range(cols):
-            matrix[i][j] = matrix[i][j] + minimum
-    return matrix
+            normalized[i][j] = matrix[i][j] + minimum
+
+    return normalized
 
 
 def payoff_matrix(difficulties, player_sign):
-    minimum = EASY_WIN
+    minimum = HARD_LOSE
     rows = cols = len(difficulties)
     payoff = [[0 for _ in range(rows**2)] for _ in range(cols**2)]
 
@@ -47,9 +49,8 @@ def payoff_matrix(difficulties, player_sign):
     print('payoff matrix') 
     print_2d_array(payoff)   
 
-
     print('Normalized Matrix')    
-    payoff = payoff_normalize(payoff, rows**2, cols**2, -minimum)
+    normalized_payoff = payoff_normalize(payoff, rows**2, cols**2, -minimum)
     print_2d_array(payoff)
-    return payoff
+    return payoff, normalized_payoff
 

@@ -3,8 +3,8 @@ import cought from "../../assets/cought.png"
 import Tom from "../../assets/tomFace.webp"
 import Jerry from "../../assets/jerryFace.png"
 
-const Colors = ['bg-red-200', 'bg-green-200', 'bg-gray-200'];
-const Names = ['Hard', 'easy', 'Neutral'];
+const Colors = ['bg-green-200', 'bg-gray-200', 'bg-red-200'];
+const Names = ['easy', 'neutral', 'hard'];
 
 const Cell= ({x,y,onClick})=>{
     const {state: gameState, actions} = useGame();
