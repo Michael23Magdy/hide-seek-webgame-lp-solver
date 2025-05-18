@@ -12,10 +12,10 @@ const GameStatusDisplay = ({ handleNextRound, handleGameReset }) => {
             <p className="text-xl text-gray-800">Round {gameState.roundCount}</p>
             <div className="text-red-300 p-2 rounded-2xl w-48 text-center">
                 {
-                    (gameState.roundWinner == GameRole.Hider)   ? <p>The hider is the winner</p>  :
-                    (gameState.roundWinner == GameRole.Seeker)  ? <p>The Seeker is the winner</p> :
-                    (gameState.turn == GameRole.Hider)          ? <p>Hider's turn. choose a place to hide</p> : 
-                                                                <p>Seeker's turn. choose a place to explore</p>
+                    (gameState.roundWinner == GameRole.Hider)   ? <p>Jerry wins</p>  :
+                    (gameState.roundWinner == GameRole.Seeker)  ? <p>Tom wins</p> :
+                    (gameState.turn == GameRole.Hider)          ? <p>Jerry's turn</p> : 
+                                                                <p>Topm's turn</p>
                 }
             </div>
             <button

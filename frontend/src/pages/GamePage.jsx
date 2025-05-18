@@ -8,6 +8,7 @@ import ScoreBoard from "../Components/GamePageComponents/ScoreBoard";
 import { sendDataToServer } from "../API/simplex";
 import loader from "../assets/200w.gif";
 import Table from "../Components/GamePageComponents/Table";
+import PopupWindow from "../Components/ui/PopupWindows";
 
 const GamePage = () => {
     const {state: gameState, actions} = useGame();
@@ -18,6 +19,11 @@ const GamePage = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const simulationCountRef = useRef(100);
+    const [isWindowOpen, setIsWindowOpen] = useState([false, false, false]);
+
+    const setPopupOpen = (index, value) => {
+        setIsWindowOpen(prev => prev.map((open, i) => i === index ? value : open));
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -130,34 +136,36 @@ const GamePage = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 grid-rows-3 sm:grid-cols-3 sm:grid-rows-2 gap-4 h-max">
-            <div className="row-span-2 col-span-2 flex justify-center items-center">
-                {isLoading?<img className="m-auto" src={loader} />: <GameGrid onCellClick={play} />}
-            </div>
-            <div className="row-span-1 col-span-1 h-max">
-                <ScoreBoard />
-            </div>
-            <div className="row-span-1 col-span-1">
-                <GameStatusDisplay handleGameReset={handleGameReset} handleNextRound={handleNextRound} />
-            </div>
-            {aiData.seekerProbability && aiData.hiderProbability && aiData.payoff && (
-            <>
-                <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                <Table Data={aiData.hiderProbability} size={gameState.size} title="Hider Probability" />
-                <Table Data={aiData.seekerProbability} size={gameState.size} title="Seeker Probability" />
-                </div>
-
-                <div className="col-span-3">
+        <>
+            <PopupWindow isOpen={isWindowOpen[0]} onClose={()=>setPopupOpen(0, false)}>
                 <Table Data={aiData.payoff} size={gameState.size*gameState.size} title="PayOff matrix" />
+            </PopupWindow>
+            <PopupWindow isOpen={isWindowOpen[1]} onClose={()=>setPopupOpen(1, false)}>
+                <Table Data={aiData.hiderProbability} size={gameState.size} title="Hider Probability" round={4} />
+            </PopupWindow>
+            <PopupWindow isOpen={isWindowOpen[2]} onClose={()=>setPopupOpen(2, false)}>
+                <Table Data={aiData.seekerProbability} size={gameState.size} title="Seeker Probability" round={4} />
+            </PopupWindow>
+            <div className="grid grid-cols-1 sm:grid-cols-3 auto-rows-max gap-4 h-max">
+                <div className="sm:col-span-2 row-span-3  flex justify-center items-center">
+                    {isLoading ? <img className="m-auto" src={loader} /> : <GameGrid onCellClick={play} />}
                 </div>
-            </>
-            )}
 
-            {/* Optionally, show gameState for debugging in a hidden cell or below */}
-            {/* <div className="col-span-3">
-                <pre>{JSON.stringify(gameState, null, 2)}</pre>
-            </div> */}
-        </div>
+                <div className="h-max">
+                    <ScoreBoard />
+                </div>
+
+                <div className="flex justify-between items-center">
+                    <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(0, true)}>🧮</button>
+                    <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(1, true)}>🙈</button>
+                    <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(2, true)}>🔍</button>
+                </div>
+
+                <div className="flex items-end">
+                    <GameStatusDisplay handleGameReset={handleGameReset} handleNextRound={handleNextRound} />
+                </div>
+            </div>
+        </>
     );
 }
 export default GamePage;
