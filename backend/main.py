@@ -1,6 +1,7 @@
 from payoff_fn import *
 from simplex import *
 import numpy as np
+import random
 
 def solve(matrix, player_sign=1):
     """
@@ -47,12 +48,14 @@ def solve(matrix, player_sign=1):
         raise
 
 # Example matrix from the image
-matrix = [
-    [2, 2, 2, 1],
-    [0, 1, 1, 2],
-    [1, 0, 1, 2],
-    [1, 2, 1, 1]
-]
+# matrix = [
+#     [2, 2, 2],
+#     [0, 1, 1],
+#     [1, 0, 1],
+# ]
+rows,cols=3,3
+matrix = [[random.randint(0, 2) for _ in range(cols)] for _ in range(rows)]
+
 payoff, p1strat, p2strat = solve(matrix)
-print("\nPayoff matrix:")
-print(payoff)
+
+
