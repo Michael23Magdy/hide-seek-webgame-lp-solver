@@ -45,7 +45,7 @@ export function chooseBasedOnProbability(probabilities, size){
             flatProbs.sort((a, b) => b.prob - a.prob);
             
             // 70% of the time, pick based on the probability distribution
-            if (Math.random() < 1) {
+            if (Math.random() <= 1) {
                 // Use roulette wheel selection
                 const r = Math.random();
                 let cumulativeProb = 0;

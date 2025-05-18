@@ -36,8 +36,8 @@ const GamePage = () => {
                     console.log("Received data from server:", data);
                     setAiData({
                         payoff: data.payoff_matrix,
-                        hiderProbability: data.p1strat,
-                        seekerProbability: data.p2strat
+                        hiderProbability: data.hiderStrat,
+                        seekerProbability: data.seekerStrat
                     });
                     
                     // If computer players are active, we can use the AI strategy here

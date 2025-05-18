@@ -65,8 +65,8 @@ def process_data():
             # Prepare response
             response = {
                 "payoff_matrix": serializable_payoff,
-                "p1strat": serializable_p1strat,
-                "p2strat": serializable_p2strat,
+                "hiderStrat": serializable_p1strat,
+                "seekerStrat": serializable_p2strat,
             }
             
             return jsonify(response), 200
