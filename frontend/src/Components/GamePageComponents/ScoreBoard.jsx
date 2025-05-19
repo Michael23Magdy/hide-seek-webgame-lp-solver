@@ -14,10 +14,12 @@ const ScoreBoard=()=>{
                 <div className="text-2xl flex flex-col "> 
                     <img className={`p-2 rounded-full bg-sky-200 mb-2 w-16 ${gameState.turn == GameRole.Seeker? "border-green-500 border-2":""}`} src={Tom} /> 
                     <span className="w-full text-center">{gameState.seekerScore}</span>
+                    <span className="w-full text-center text-sm text-gray-400">{gameState.seekerGamesWon}</span>
                 </div>
                 <div className="text-2xl flex flex-col"> 
                     <img className={`p-2 rounded-full bg-yellow-200 mb-2 w-16 ${gameState.turn == GameRole.Hider? "border-green-500 border-2":""}`} src={Jerry} /> 
                     <span className="w-full text-center">{gameState.hiderScore}</span>
+                    <span className="w-full text-center text-sm text-gray-400">{gameState.hiderGamesWon}</span>
                 </div>
             </div>
         </BoxContainer>

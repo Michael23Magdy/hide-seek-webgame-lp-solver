@@ -18,7 +18,7 @@ const GamePage = () => {
         seekerProbability: null
     });
     const [isLoading, setIsLoading] = useState(false);
-    const simulationCountRef = useRef(100);
+    const simulationCountRef = useRef(99);
     const [isWindowOpen, setIsWindowOpen] = useState([false, false, false]);
 
     const setPopupOpen = (index, value) => {
@@ -63,8 +63,9 @@ const GamePage = () => {
             let winner = checkWinner();
             if(winner == null) return;
             let points = calculateScore();
+            if(winner==GameRole.Hider) actions.increamentHiderGamesWon(); else actions.increamentSeekerGamesWon()
             actions.setRoundWinner(winner);
-            actions.increamentHiderScore(points);        
+            actions.increamentHiderScore(points);     
             actions.increamentSeekerScore(-points);
             if(gameState.seekerType == PlayerType.Computer && gameState.hiderType == PlayerType.Computer){
                 // next roound
@@ -119,9 +120,12 @@ const GamePage = () => {
         actions.increamentRoundCount();
     }
     const handleGameReset = () => {
+        simulationCountRef.current = 99;
         actions.generateNewGrid();
         actions.resetHiderScore();
         actions.resetSeekerScore();
+        actions.resetHiderGamesWon();
+        actions.resetSeekerGamesWon();
         actions.resetRoundCount();
         actions.setHiderChoice(null, null);
         actions.setSeekerChoice(null, null);

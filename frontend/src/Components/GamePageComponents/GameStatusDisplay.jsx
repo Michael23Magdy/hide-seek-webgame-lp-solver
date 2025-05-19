@@ -15,7 +15,7 @@ const GameStatusDisplay = ({ handleNextRound, handleGameReset }) => {
                     (gameState.roundWinner == GameRole.Hider)   ? <p>Jerry wins</p>  :
                     (gameState.roundWinner == GameRole.Seeker)  ? <p>Tom wins</p> :
                     (gameState.turn == GameRole.Hider)          ? <p>Jerry's turn</p> : 
-                                                                <p>Topm's turn</p>
+                                                                <p>Tom's turn</p>
                 }
             </div>
             <button

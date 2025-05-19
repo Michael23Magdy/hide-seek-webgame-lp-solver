@@ -12,21 +12,25 @@ export function GameProvider({ children }){
     const actions = {
         setSize: size => dispatch({type: GameActions.setSize, payload: size}),
         generateNewGrid: ()=> dispatch({type: GameActions.generateNewGrid, payload: generateRandomGrid(state.size)}),
-        
+
         increamentHiderScore: increase => dispatch({type: GameActions.setHiderScore, payload: (state.hiderScore + increase)}),
+        increamentHiderGamesWon: () => dispatch({type: GameActions.setHiderGamesWon, payload: (state.hiderGamesWon + 1)}),
         setHiderChoice: (x, y) => dispatch({type: GameActions.setHiderChoice, payload: {x, y}}),
         setHiderType: type => dispatch({type: GameActions.setHiderType, payload: type}),
-        
+
         increamentSeekerScore: increase => dispatch({type: GameActions.setSeekerScore, payload: (state.seekerScore + increase)}),
+        increamentSeekerGamesWon: () => dispatch({type: GameActions.setSeekerGamesWon, payload: (state.seekerGamesWon + 1)}),
         setSeekerChoice: (x, y) => dispatch({type: GameActions.setSeekerChoice, payload: {x, y}}),
         setSeekerType: type => dispatch({type: GameActions.setSeekerType, payload: type}),
-        
+
         setTurn: player => dispatch({type: GameActions.setTurn, payload: player}),
         setRoundWinner: winner => dispatch({type: GameActions.setRoundWinner, payload: winner}),
         increamentRoundCount: ()=> dispatch({type: GameActions.setRoundCount, payload: (state.roundCount + 1)}),
-        
+
         resetHiderScore: () => dispatch({type: GameActions.setHiderScore, payload: 0}),
         resetSeekerScore: () => dispatch({type: GameActions.setSeekerScore, payload: 0}),
+        resetHiderGamesWon: () => dispatch({type: GameActions.setHiderGamesWon, payload: 0}),
+        resetSeekerGamesWon: () => dispatch({type: GameActions.setSeekerGamesWon, payload: 0}),
         resetRoundCount: ()=> dispatch({type: GameActions.setRoundCount, payload: 0}),
     }
 

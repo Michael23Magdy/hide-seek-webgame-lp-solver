@@ -5,13 +5,14 @@ export const initialGameState = {
     size: 3,
     grid: [],
     hiderScore: 0,
+    hiderGamesWon: 0,
     hiderType: PlayerType.Human,
     hiderChoice: {
         x: null,
         y: null,
     },
-    
     seekerScore: 0,
+    seekerGamesWon: 0,
     seekerType: PlayerType.Computer,
     seekerChoice: {
         x: null,
@@ -56,6 +57,12 @@ export function gameReducer(state, action){
 
         case GameActions.setRoundCount:
             return {...state, roundCount: action.payload}
+
+        case GameActions.setHiderGamesWon: // Added
+            return {...state, hiderGamesWon: action.payload}
+
+        case GameActions.setSeekerGamesWon: // Added
+            return {...state, seekerGamesWon: action.payload}
 
         default:
             throw new Error(`Unknown action: ${action.type}`);
