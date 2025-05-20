@@ -178,8 +178,8 @@ const GamePage = () => {
             <PopupWindow isOpen={isWindowOpen[3]} onClose={()=>setPopupOpen(3, false)}>
                 <HistoryTable gameHistory={gameHistory} />
             </PopupWindow>
-            <button className="fixed left-4 top-4 bg-white opacity-70 hover:opacity-100 rounded-2xl p-4" onClick={handleBackToHome}>
-                {"<"}
+            <button className="fixed left-4 top-4 bg-white opacity-70 hover:opacity-100 rounded-2xl py-2 px-3" onClick={handleBackToHome}>
+                🏠 Home
             </button>
             <div className="grid grid-cols-1 sm:grid-cols-3 auto-rows-max gap-4 h-max">
                 <div className="sm:col-span-2 row-span-3  flex justify-center items-center">
