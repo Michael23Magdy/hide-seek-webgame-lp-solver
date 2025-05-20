@@ -9,6 +9,8 @@ import { sendDataToServer } from "../API/simplex";
 import loader from "../assets/200w.gif";
 import Table from "../Components/GamePageComponents/Table";
 import PopupWindow from "../Components/ui/PopupWindows";
+import HistoryTable from "../Components/GamePageComponents/HistoryTable";
+import { useNavigate } from "react-router-dom";
 
 const GamePage = () => {
     const {state: gameState, actions} = useGame();
@@ -19,8 +21,23 @@ const GamePage = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const simulationCountRef = useRef(99);
-    const [isWindowOpen, setIsWindowOpen] = useState([false, false, false]);
+    const [isWindowOpen, setIsWindowOpen] = useState([false, false, false, false]);
+    const [gameHistory, setGameHistory] = useState([]);
+    const navigate = useNavigate();
 
+    const addHistoryRecord = (winner)=>{
+        setGameHistory(prev => [
+            ...prev,
+            {
+                round: gameState.roundCount,
+                hiderChoice: { ...gameState.hiderChoice },
+                seekerChoice: { ...gameState.seekerChoice },
+                winner: winner,
+                score: calculateScore()
+            }
+        ]);
+    };
+    
     const setPopupOpen = (index, value) => {
         setIsWindowOpen(prev => prev.map((open, i) => i === index ? value : open));
     };
@@ -67,6 +84,7 @@ const GamePage = () => {
             actions.setRoundWinner(winner);
             actions.increamentHiderScore(points);     
             actions.increamentSeekerScore(-points);
+            addHistoryRecord(winner);
             if(gameState.seekerType == PlayerType.Computer && gameState.hiderType == PlayerType.Computer){
                 // next roound
                 if(simulationCountRef.current){
@@ -131,7 +149,14 @@ const GamePage = () => {
         actions.setSeekerChoice(null, null);
         actions.setTurn(null);
         actions.setRoundWinner(null);
-    } 
+    }
+
+    const handleBackToHome = ()=>{
+        handleGameReset();
+        navigate("/");
+    }
+
+    
 
     const calculateScore = ()=>{
         let i = gameState.hiderChoice.x * gameState.size + gameState.hiderChoice.y;
@@ -150,6 +175,12 @@ const GamePage = () => {
             <PopupWindow isOpen={isWindowOpen[2]} onClose={()=>setPopupOpen(2, false)}>
                 <Table Data={aiData.seekerProbability} size={gameState.size} title="Seeker Probability" round={4} />
             </PopupWindow>
+            <PopupWindow isOpen={isWindowOpen[3]} onClose={()=>setPopupOpen(3, false)}>
+                <HistoryTable gameHistory={gameHistory} />
+            </PopupWindow>
+            <button className="fixed left-4 top-4 bg-white opacity-70 hover:opacity-100 rounded-2xl py-2 px-3" onClick={handleBackToHome}>
+                🏠 Home
+            </button>
             <div className="grid grid-cols-1 sm:grid-cols-3 auto-rows-max gap-4 h-max">
                 <div className="sm:col-span-2 row-span-3  flex justify-center items-center">
                     {isLoading ? <img className="m-auto" src={loader} /> : <GameGrid onCellClick={play} />}
@@ -163,6 +194,7 @@ const GamePage = () => {
                     <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(0, true)}>🧮</button>
                     <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(1, true)}>🙈</button>
                     <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(2, true)}>🔍</button>
+                    <button className="p-2 rounded-full bg-white text-2xl" title="Show" onClick={()=>setPopupOpen(3, true)}>📜</button>
                 </div>
 
                 <div className="flex items-end">
