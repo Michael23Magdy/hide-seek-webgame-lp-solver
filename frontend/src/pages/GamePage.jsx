@@ -10,6 +10,7 @@ import loader from "../assets/200w.gif";
 import Table from "../Components/GamePageComponents/Table";
 import PopupWindow from "../Components/ui/PopupWindows";
 import HistoryTable from "../Components/GamePageComponents/HistoryTable";
+import { useNavigate } from "react-router-dom";
 
 const GamePage = () => {
     const {state: gameState, actions} = useGame();
@@ -22,6 +23,7 @@ const GamePage = () => {
     const simulationCountRef = useRef(99);
     const [isWindowOpen, setIsWindowOpen] = useState([false, false, false, false]);
     const [gameHistory, setGameHistory] = useState([]);
+    const navigate = useNavigate();
 
     const addHistoryRecord = (winner)=>{
         setGameHistory(prev => [
@@ -149,6 +151,11 @@ const GamePage = () => {
         actions.setRoundWinner(null);
     }
 
+    const handleBackToHome = ()=>{
+        handleGameReset();
+        navigate("/");
+    }
+
     
 
     const calculateScore = ()=>{
@@ -171,6 +178,9 @@ const GamePage = () => {
             <PopupWindow isOpen={isWindowOpen[3]} onClose={()=>setPopupOpen(3, false)}>
                 <HistoryTable gameHistory={gameHistory} />
             </PopupWindow>
+            <button className="fixed left-4 top-4 bg-white opacity-70 hover:opacity-100 rounded-2xl p-4" onClick={handleBackToHome}>
+                {"<"}
+            </button>
             <div className="grid grid-cols-1 sm:grid-cols-3 auto-rows-max gap-4 h-max">
                 <div className="sm:col-span-2 row-span-3  flex justify-center items-center">
                     {isLoading ? <img className="m-auto" src={loader} /> : <GameGrid onCellClick={play} />}
