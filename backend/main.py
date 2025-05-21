@@ -48,13 +48,13 @@ def solve(matrix, player_sign=1):
         raise
 
 # Example matrix from the image
-# matrix = [
-#     [2, 2, 2],
-#     [0, 1, 1],
-#     [1, 0, 1],
+matrix = [
+    [1,0],
+    [2,0]
+]
 # ]
-rows,cols=3,3
-matrix = [[random.randint(0, 2) for _ in range(cols)] for _ in range(rows)]
+# rows,cols=3,3
+# matrix = [[random.randint(0, 2) for _ in range(cols)] for _ in range(rows)]
 
 payoff, p1strat, p2strat = solve(matrix)
 
