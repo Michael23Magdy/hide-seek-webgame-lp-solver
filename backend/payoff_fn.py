@@ -7,7 +7,6 @@ def print_2d_array(array):
         print(' '.join(str(cell) for cell in row))
     print()
 
-
 def payoff_normalize(matrix, rows, cols, minimum):
     normalized = [[0 for _ in range(cols)] for _ in range(rows)]
     for i in range(rows):
@@ -15,11 +14,37 @@ def payoff_normalize(matrix, rows, cols, minimum):
             normalized[i][j] = matrix[i][j] + minimum
     return normalized
 
+def chebyshev_distance(i1, j1, i2, j2):
+    return max(abs(i1 - i2), abs(j1 - j2))
+
+def adjusted_win_matrix(rows, cols, base_win, i, j, player_sign):
+    win_row = [0 for _ in range(rows * cols)]
+    for m in range(rows):
+        for n in range(cols):
+            seeker_idx = m * cols + n
+            dist = chebyshev_distance(i, j, m, n)
+
+            if dist == 1:
+                multiplier = 0.5
+            elif dist == 2:
+                multiplier = 0.75
+            else:
+                multiplier = 1.0
+
+            win_row[seeker_idx] = int(player_sign * base_win * multiplier)
+    return win_row
 
 def payoff_matrix(difficulties, player_sign):
+    # Handle 1D difficulty input
+    if isinstance(difficulties[0], int):
+        difficulties = [[x] for x in difficulties]
+
+    rows = len(difficulties)
+    cols = len(difficulties[0])
+
     minimum = HARD_LOSE
-    rows = cols = len(difficulties)
-    payoff = [[0 for _ in range(rows**2)] for _ in range(cols**2)]
+    total_cells = rows * cols
+    payoff = [[0 for _ in range(total_cells)] for _ in range(total_cells)]
 
     print('difficulty matrix') 
     print_2d_array(difficulties)   
@@ -39,7 +64,6 @@ def payoff_matrix(difficulties, player_sign):
                 case 0:
                     win_score, lose_score = EASY_WIN, EASY_LOSE
                     minimum = min(minimum, EASY_LOSE)
-    
 
             payoff[idx] = adjusted_win_matrix(rows, cols, win_score, i, j, player_sign)
             payoff[idx][idx] = player_sign * lose_score
@@ -48,30 +72,7 @@ def payoff_matrix(difficulties, player_sign):
     print_2d_array(payoff)   
 
     print('Normalized Matrix')    
-    normalized_payoff = payoff_normalize(payoff, rows**2, cols**2, -minimum)
+    normalized_payoff = payoff_normalize(payoff, total_cells, total_cells, -minimum)
     print_2d_array(normalized_payoff)
+
     return payoff, normalized_payoff
-
-
-def chebyshev_distance(i1, j1, i2, j2):
-    return max(abs(i1 - i2), abs(j1 - j2))
-
-
-def adjusted_win_matrix(rows, cols, base_win, i, j, player_sign):
-    win_row = [0 for _ in range(rows * cols)]
-    for m in range(rows):
-        for n in range(cols):
-            seeker_idx = m * cols + n
-            dist = chebyshev_distance(i, j, m, n)
-
-            if dist == 1:
-                multiplier = 0.5
-            elif dist == 2:
-                multiplier = 0.75
-            else:
-                multiplier = 1.0
-
-            win_row[seeker_idx] = int(player_sign * base_win * multiplier)
-    return win_row
-
-
