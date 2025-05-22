@@ -75,4 +75,5 @@ def payoff_matrix(difficulties, player_sign):
     normalized_payoff = payoff_normalize(payoff, total_cells, total_cells, -minimum)
     print_2d_array(normalized_payoff)
 
+
     return payoff, normalized_payoff
