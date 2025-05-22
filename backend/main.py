@@ -49,8 +49,7 @@ def solve(matrix, player_sign=1):
 
 # Example matrix from the image
 matrix = [
-    [1,0],
-    [2,0]
+    [1,0,0,2]
 ]
 # ]
 # rows,cols=3,3
