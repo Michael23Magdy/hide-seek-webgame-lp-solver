@@ -10,8 +10,9 @@ export function GameProvider({ children }){
     const [state, dispatch] = useReducer(gameReducer, initialGameState);
 
     const actions = {
-        setSize: size => dispatch({type: GameActions.setSize, payload: size}),
-        generateNewGrid: ()=> dispatch({type: GameActions.generateNewGrid, payload: generateRandomGrid(state.size)}),
+        setNoRows: size => dispatch({type: GameActions.setNoRows, payload: size}),
+        setNoCols: size => dispatch({type: GameActions.setNoCols, payload: size}),
+        generateNewGrid: ()=> dispatch({type: GameActions.generateNewGrid, payload: generateRandomGrid(state.noRows, state.noCols)}),
 
         increamentHiderScore: increase => dispatch({type: GameActions.setHiderScore, payload: (state.hiderScore + increase)}),
         increamentHiderGamesWon: () => dispatch({type: GameActions.setHiderGamesWon, payload: (state.hiderGamesWon + 1)}),

@@ -1,16 +1,16 @@
 
-export function generateRandomGrid(size){
-    return Array.from({ length: size }, () => 
-        Array.from({ length: size }, () => Math.floor(Math.random() * 3))
+export function generateRandomGrid(sizeX, sizeY){
+    return Array.from({ length: sizeX }, () => 
+        Array.from({ length: sizeY }, () => Math.floor(Math.random() * 3))
     );
 }
 
-export function chooseRandomCell(size){
-    return {x: Math.floor(Math.random()*size),  y: Math.floor(Math.random()*size)};
+export function chooseRandomCell(sizeX, sizeY){
+    return {x: Math.floor(Math.random()*sizeX),  y: Math.floor(Math.random()*sizeY)};
 }
 
-export function chooseBasedOnProbability(probabilities, size) {
-    if (!Array.isArray(probabilities)) return chooseRandomCell(size);
+export function chooseBasedOnProbability(probabilities, sizeX, sizeY) {
+    if (!Array.isArray(probabilities)) return chooseRandomCell(sizeX, sizeY);
 
     let flat = [], total = 0;
     for (let i = 0; i < probabilities.length; i++)
@@ -19,7 +19,7 @@ export function chooseBasedOnProbability(probabilities, size) {
             if (p > 0) { flat.push({ x: i, y: j, p }); total += p; }
         }
 
-    if (!flat.length || !total) return chooseRandomCell(size);
+    if (!flat.length || !total) return chooseRandomCell(sizeX, sizeY);
 
     flat.forEach(cell => cell.p /= total);
 

@@ -1,5 +1,6 @@
 export const GameActions = Object.freeze({
-    setSize: "set size",
+    setNoRows: "set no rows",
+    setNoCols: "set no cols",
     generateNewGrid: "generate new grid",
 
     setHiderScore: "set hider score",

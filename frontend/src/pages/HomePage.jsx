@@ -104,9 +104,40 @@ const HomePage = ()=>{
 
                 <div className="w-full p-4">
                     <label htmlFor="rangeInput" className="block text-lg font-bold mb-2">
-                        Grid Size:
+                        No Rows:
                         <span aria-live="polite" className="ml-1">
-                        {gameState.size}×{gameState.size}
+                        {gameState.noRows}
+                        </span>
+                    </label>
+
+                    <input
+                        id="rangeInput"
+                        type="range"
+                        min={1}
+                        max={5}
+                        step={1}
+                        value={gameState.noRows}
+                        className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sky-200 accent-green-400 hover:accent-green-600 "
+                        onChange={e => actions.setNoRows(parseInt(e.target.value, 10))}
+                        aria-valuemin={1}
+                        aria-valuemax={5}
+                        aria-valuenow={gameState.noRows}
+                    />
+
+                    <div className="flex justify-between mt-2 text-sm text-gray-600">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                    </div>
+                </div>
+
+                <div className="w-full p-4">
+                    <label htmlFor="rangeInput" className="block text-lg font-bold mb-2">
+                        No Columns:
+                        <span aria-live="polite" className="ml-1">
+                        {gameState.noCols}
                         </span>
                     </label>
 
@@ -114,21 +145,20 @@ const HomePage = ()=>{
                         id="rangeInput"
                         type="range"
                         min={3}
-                        max={6}
+                        max={5}
                         step={1}
-                        value={gameState.size}
+                        value={gameState.noCols}
                         className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sky-200 accent-green-400 hover:accent-green-600 "
-                        onChange={e => actions.setSize(parseInt(e.target.value, 10))}
+                        onChange={e => actions.setNoCols(parseInt(e.target.value, 10))}
                         aria-valuemin={3}
-                        aria-valuemax={6}
-                        aria-valuenow={gameState.size}
+                        aria-valuemax={5}
+                        aria-valuenow={gameState.noCols}
                     />
 
                     <div className="flex justify-between mt-2 text-sm text-gray-600">
-                        <span>3×3</span>
-                        <span>4×4</span>
-                        <span>5×5</span>
-                        <span>6×6</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
                     </div>
                 </div>
                 <div className="w-full">

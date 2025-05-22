@@ -5,7 +5,7 @@ import BoxContainer from "../ui/BoxContainer";
 
 const GameGrid = ({onCellClick}) => {
     const {state: gameState, actions} = useGame();
-    const {grid, size, hiderChoice, seekerChoice} = gameState;
+    const {grid, noCols, hiderChoice, seekerChoice} = gameState;
 
     const columnClass = {
         2: "grid-cols-2",
@@ -17,7 +17,7 @@ const GameGrid = ({onCellClick}) => {
         16: "grid-cols-16",
         25: "grid-cols-25",
         36: "grid-cols-36",
-    }[size] || "grid-cols-1";
+    }[noCols] || "grid-cols-1";
 
     return (
         <BoxContainer className={`

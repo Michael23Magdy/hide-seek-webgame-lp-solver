@@ -2,7 +2,8 @@ import { GameRole, PlayerType } from "../constants/enums";
 import { GameActions } from "./GameActions";
 
 export const initialGameState = {
-    size: 3,
+    noRows: 3,
+    noCols: 3,
     grid: [],
     hiderScore: 0,
     hiderGamesWon: 0,
@@ -25,8 +26,11 @@ export const initialGameState = {
 
 export function gameReducer(state, action){
     switch(action.type){
-        case GameActions.setSize:
-            return {...state, size: action.payload};
+        case GameActions.setNoRows:
+            return {...state, noRows: action.payload};
+
+        case GameActions.setNoCols:
+            return {...state, noCols: action.payload};
 
         case GameActions.generateNewGrid:
             return {...state, grid: action.payload};

@@ -79,7 +79,7 @@ const GamePage = () => {
 
     useEffect(() => {
         actions.generateNewGrid(); 
-    }, [gameState.size]);
+    }, [gameState.noRows, gameState.noCols]);
 
     useEffect(() => {
         if(isLoading) return;
@@ -103,12 +103,12 @@ const GamePage = () => {
             }
         } else if(gameState.turn == GameRole.Hider){
             if(gameState.hiderType === PlayerType.Computer){
-                let computerChoice = chooseBasedOnProbability(aiData.hiderProbability, gameState.size);;
+                let computerChoice = chooseBasedOnProbability(aiData.hiderProbability, gameState.noRows, gameState.noCols);;
                 play(computerChoice.x, computerChoice.y);
             }
         } else if(gameState.turn == GameRole.Seeker){
             if(gameState.seekerType === PlayerType.Computer){
-                let computerChoice = chooseBasedOnProbability(aiData.seekerProbability, gameState.size);;
+                let computerChoice = chooseBasedOnProbability(aiData.seekerProbability, gameState.npRows, gameState.noCols);;
                 play(computerChoice.x, computerChoice.y);
             }
         }
@@ -167,21 +167,21 @@ const GamePage = () => {
     
 
     const calculateScore = ()=>{
-        let i = gameState.hiderChoice.x * gameState.size + gameState.hiderChoice.y;
-        let j = gameState.seekerChoice.x * gameState.size + gameState.seekerChoice.y;
+        let i = gameState.hiderChoice.x * gameState.noRows + gameState.hiderChoice.y;
+        let j = gameState.seekerChoice.x * gameState.noRows + gameState.seekerChoice.y;
         return aiData.payoff[i][j];
     }
 
     return (
         <>
             <PopupWindow isOpen={isWindowOpen[0]} onClose={()=>setPopupOpen(0, false)}>
-                <Table Data={aiData.payoff} size={gameState.size*gameState.size} title="PayOff matrix" />
+                <Table Data={aiData.payoff} size={gameState.noRows*gameState.noCols} title="PayOff matrix" />
             </PopupWindow>
             <PopupWindow isOpen={isWindowOpen[1]} onClose={()=>setPopupOpen(1, false)}>
-                <Table Data={aiData.hiderProbability} size={gameState.size} title="Hider Probability" round={4} />
+                <Table Data={aiData.hiderProbability} size={gameState.noCols} title="Hider Probability" round={4} />
             </PopupWindow>
             <PopupWindow isOpen={isWindowOpen[2]} onClose={()=>setPopupOpen(2, false)}>
-                <Table Data={aiData.seekerProbability} size={gameState.size} title="Seeker Probability" round={4} />
+                <Table Data={aiData.seekerProbability} size={gameState.noCols} title="Seeker Probability" round={4} />
             </PopupWindow>
             <PopupWindow isOpen={isWindowOpen[3]} onClose={()=>setPopupOpen(3, false)}>
                 <HistoryTable gameHistory={gameHistory} />
