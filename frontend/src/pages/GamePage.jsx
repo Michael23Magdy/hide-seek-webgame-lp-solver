@@ -25,6 +25,13 @@ const GamePage = () => {
     const [gameHistory, setGameHistory] = useState([]);
     const navigate = useNavigate();
 
+    
+    useEffect(()=>{
+        if (gameState.grid == null || gameState.grid.length == 0){
+            handleBackToHome();
+        }
+    },[]);
+
     const addHistoryRecord = (winner)=>{
         setGameHistory(prev => [
             ...prev,
@@ -139,6 +146,7 @@ const GamePage = () => {
     }
     const handleGameReset = () => {
         simulationCountRef.current = 99;
+        setGameHistory([]);
         actions.generateNewGrid();
         actions.resetHiderScore();
         actions.resetSeekerScore();
