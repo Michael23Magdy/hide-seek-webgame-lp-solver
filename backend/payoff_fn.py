@@ -35,7 +35,6 @@ def adjusted_win_matrix(rows, cols, base_win, i, j, player_sign):
     return win_row
 
 def payoff_matrix(difficulties, player_sign):
-    # Handle 1D difficulty input
     if isinstance(difficulties[0], int):
         difficulties = [[x] for x in difficulties]
 

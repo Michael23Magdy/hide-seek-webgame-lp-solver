@@ -77,9 +77,6 @@ const GamePage = () => {
         fetchData();
     }, [gameState.grid]);
 
-    useEffect(() => {
-        actions.generateNewGrid(); 
-    }, [gameState.noRows, gameState.noCols]);
 
     useEffect(() => {
         if(isLoading) return;
